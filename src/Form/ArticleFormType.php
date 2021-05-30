@@ -11,14 +11,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ArticleType extends AbstractType
+class ArticleFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'titre',
-                TextareaType::class,
+                TextType::class,
                 [
                     'constraints' => [new NotBlank()],
                     'attr' => ['class' => 'form-control']
@@ -26,7 +26,7 @@ class ArticleType extends AbstractType
                 )  
             ->add(
                 'contenu',
-                TextType::class,
+                TextareaType::class,
                 [
                     'constraints' => [new NotBlank()],
                     'attr' => ['class' => 'form-control']

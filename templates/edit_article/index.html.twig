@@ -12,22 +12,20 @@
 
     <h1>Hello ! ✅</h1>
 
-    <main>
-        <div>
-            {{ article.contenu }}
+    <main> 
+        {{ form_start(form) }}
+        <div class="form-group col-md-4">
+        {{ form_row(form.titre, {'label':'Titre de l\'article ' })}}
         </div>
-        <div>
-            {{ form_start(form) }}
-            <div class="form-group col-md-4">
-            {{ form_row(form.contenu) }}
-            </div>
-            {{ form_end(form) }}
+        <div class="form-group col-md-4">
+        {{ form_row(form.contenu) }}
         </div>
-        <div>
-        {{ comments.contenu }}
+        <div class="form-group col-md-4">
+        {{ form_row(form.submit, { 'label': 'Submit article!' })}}
         </div>
+        {{ form_end(form) }}
     </main>
-
+    
 
     This friendly message is coming from:
     <ul>
