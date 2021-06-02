@@ -16,6 +16,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EditArticleController extends AbstractController
 {
+    
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
+    /** @var \Doctrine\Common\Persistence\ObjectRepository */
+    private $userRepository;
+
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+        $userRepository = $entityManager->getRepository('App:User');
+        $articlesRepository = $entityManager->getRepository('App:Article');
+        $commentsRepository = $entityManager->getRepository('App:Commentaire');
+    }
 
     #[Route('/edit', name: 'blog_edit')]
     public function index(Request $request): Response

@@ -15,10 +15,10 @@
     <main> 
         {{ form_start(form) }}
         <div class="form-group col-md-4">
-        {{ form_row(form.titre, {'label':'Titre de l\'article ' })}}
+        {{ form_row(form.titre, {'label':'Mon titre' })}}
         </div>
         <div class="form-group col-md-4">
-        {{ form_row(form.contenu) }}
+        {{ form_row(form.contenu, {'label':'Contenu de mon article' }) }}
         </div>
         <div class="form-group col-md-4">
         {{ form_row(form.submit, { 'label': 'Submit article!' })}}

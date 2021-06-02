@@ -14,10 +14,22 @@
 
     <main>
         <div>
-            {{ article.contenu }}
+           
+            <div class="article-title">
+                <h2>
+                    {{ article.titre }}
+                </h2>
+                
+            </div>
+            <div class="article-content">
+                <pre>
+                {{ article.contenu }}
+                </pre>
+            </div>
         </div>
         <div>
             {{ form_start(form) }}
+            
             <div class="form-group col-md-4">
             {{ form_row(form.contenu) }}
             </div>

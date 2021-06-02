@@ -16,6 +16,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class ShowArticleController extends AbstractController
 {
 
+    
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
+    /** @var \Doctrine\Common\Persistence\ObjectRepository */
+    private $userRepository;
+
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+        $userRepository = $entityManager->getRepository('App:User');
+        $articlesRepository = $entityManager->getRepository('App:Article');
+        $commentsRepository = $entityManager->getRepository('App:Commentaire');
+    }
+
      /**
      * @Route("/blog/{id}", name="show_article")
      */
