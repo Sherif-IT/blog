@@ -78,11 +78,13 @@ h6 {
 .form-control,
 .custom-select {
     width: 100%;
-    height: 35px;
-    padding: 5px 15px;
     color: #999999;
     border: 1px solid #cccccc;
     margin-bottom: 15px
+}
+.custom-select {
+    height: 35px;
+    padding: 5px 15px;
 }
 
 .form-control:focus,

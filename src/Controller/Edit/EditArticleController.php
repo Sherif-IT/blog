@@ -38,12 +38,18 @@ class EditArticleController extends AbstractController
         $user = $this->getDoctrine()
             ->getRepository(User::class)
             ->find(1);
+        /*$us = new User();
+        $us->setUsername('Augusto');
+        $us->setPassword('Ltc44');
+        $us->setEmail('augusto@gmail.com');*/
         $article = new Article();
+        
         $article->setIdUser($user); 
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+    
+        if ($form->isSubmitted() ) {
             $this->entityManager->persist($article);
             $this->entityManager->flush($article);
         }
@@ -51,4 +57,5 @@ class EditArticleController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
 }

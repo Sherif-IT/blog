@@ -8,8 +8,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ArticleFormType extends AbstractType
 {
@@ -21,7 +23,7 @@ class ArticleFormType extends AbstractType
                 TextType::class,
                 [
                     'constraints' => [new NotBlank()],
-                    'attr' => ['class' => 'form-control']
+                    'attr' => ['class' => 'form-control form-control-lg p-4', 'cols'=> 100,'rows'=> 1000, 'placeholder'=>  'Title']
                         ]
                 )  
             ->add(
@@ -29,15 +31,31 @@ class ArticleFormType extends AbstractType
                 TextareaType::class,
                 [
                     'constraints' => [new NotBlank()],
-                    'attr' => ['class' => 'form-control']
+                    'label' => false,
+                    'attr' => ['class' => 'form-control','cols'=> 1000 , 'rows' => 10,   'hidden'=>'hidden']
                         ]
             
                 )
+                /*->add(
+                    'image',
+                     FileType::class,[
+                     
+                     'label' => 'Image',
+                     
+                     'attr' => ['id'=>'uploadImage'],
+
+                     // unmapped means that this field is not associated to any entity property
+                     'mapped' => false,
+     
+                     // make it optional so you don't have to re-upload the PDF file
+                     // every time you edit the Product details
+                     'required' => false,
+                     ])*/
             ->add(
                 'submit',
                 SubmitType::class,
                 [
-                    'attr' => ['class' => 'form-submit'],
+                    'attr' => ['class' => 'form-submit',"hidden"=>"hidden"],
                     'label' => 'Submit your article!'
                 ]
                 );

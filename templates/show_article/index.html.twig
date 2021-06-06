@@ -17,9 +17,8 @@
            
             <div class="article-title">
                 <h2>
-                    {{ article.titre }}
+                {{ article.titre }}
                 </h2>
-                
             </div>
             <div class="article-content">
                 <pre>
@@ -29,7 +28,6 @@
         </div>
         <div>
             {{ form_start(form) }}
-            
             <div class="form-group col-md-4">
             {{ form_row(form.contenu) }}
             </div>
@@ -42,8 +40,10 @@
         </div>
     </main>
 
+    </main>
+    <script></script>
 
-    This friendly message is coming from:
+
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/projects/blog/src/Controller/BlogController.php'|file_link(0) }}">src/Controller/BlogController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'C:/projects/blog/templates/blog/index.html.twig'|file_link(0) }}">templates/blog/index.html.twig</a></code></li>

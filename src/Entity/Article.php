@@ -28,22 +28,24 @@ class Article
      */
     private $dateCreation;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $dateModification;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $idUser;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $contenu;
-    
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateModification;
+
+
 
     public function __construct()
     {
@@ -79,18 +81,6 @@ class Article
         return $this;
     }
 
-    public function getDateModification(): ?\DateTimeInterface
-    {
-        return $this->dateModification;
-    }
-
-    public function setDateModification(\DateTimeInterface $dateModification): self
-    {
-        $this->dateModification = $dateModification;
-
-        return $this;
-    }
-
     public function getIdUser(): ?user
     {
         return $this->idUser;
@@ -111,6 +101,18 @@ class Article
     public function setContenu(string $contenu): self
     {
         $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function getDateModification(): ?\DateTimeInterface
+    {
+        return $this->dateModification;
+    }
+
+    public function setDateModification(?\DateTimeInterface $dateModification): self
+    {
+        $this->dateModification = $dateModification;
 
         return $this;
     }

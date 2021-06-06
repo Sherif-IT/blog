@@ -1,36 +1,96 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BlogController!{% endblock %}
-
+    {% block title %}Edit your Article!{% endblock %}
+    {% block  style  %}
+        <link href="{{asset('css/editArticle.css')}}" rel="stylesheet">
+    {% endblock %}
 {% block body %}
+<?php use_helper('Javascript') ?>
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
 <div class="example-wrapper">
-
-    <h1>Hello ! ✅</h1>
-
+    <h1> Edit something! ✅</h1>
     <main> 
-        {{ form_start(form) }}
-        <div class="form-group col-md-4">
-        {{ form_row(form.titre, {'label':'Mon titre' })}}
+        <div class="form-wrapper">       
+            {{ form_start(form) }}
+            <div class="form-group  pb-2 pt-4">
+            {{ form_row(form.titre, {'label':'Mon titre' })}}
+            </div>
+            <div class="form-group ">
+                <label for="contenu" class="articleContent"> Contenu de mon article</label>
+                <div id="editor" ></div>
+                {{ form_row(form.contenu) }}
+            </div>
+            <div class="form-group col-md-4">
+          {{ form_row(form.submit, { 'label': 'Submit article!' })}}
+            </div>
+            {{ form_end(form) }}
         </div>
-        <div class="form-group col-md-4">
-        {{ form_row(form.contenu, {'label':'Contenu de mon article' }) }}
+        <div class="save_action py-5 ">
+            <button  id="submit" type="button" class="btn btn-primary btn-lg btn-block p-3" onclick="save()">Submit Your aticle</div>
         </div>
-        <div class="form-group col-md-4">
-        {{ form_row(form.submit, { 'label': 'Submit article!' })}}
-        </div>
-        {{ form_end(form) }}
     </main>
-    
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/projects/blog/src/Controller/BlogController.php'|file_link(0) }}">src/Controller/BlogController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/projects/blog/templates/blog/index.html.twig'|file_link(0) }}">templates/blog/index.html.twig</a></code></li>
-    </ul>
+    <script >/*src="{{asset('js/editor.js')}}*/
+        var toolbarOptions = [
+                ['bold', 'italic','underline'],
+                ['link', 'blockquote', 'code-block', 'image'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                [{ 'color': [] }], 
+                            ];
+
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+            });
+
+        var form = document.querySelector('form');  
+        
+        function save() { 
+
+            var cont =  document.querySelector('#article_form_contenu'); 
+            cont.value = JSON.stringify(quill.getContents());
+            console.log("Can be now submitted",cont.value);
+            document.getElementById('article_form_submit').click();
+            // No back end to actually submit to!
+            alert('Open the console or db to see the submit data!')
+
+        return false;
+        };
+        
+    </script>
+    <!--
+    <script>
+        
+        const ImageTool = window.ImageTool; 
+        const editor = new EditorJS({
+        onReady: () => {console.log('Editor.js is ready to work!')},
+        onChange: () => {console.log('Now I know that Editor\'s content changed!')},
+            
+        placeholder: 'Votre texte ici!',
+        tools: { 
+            image: {
+                class: ImageTool,
+                config: {
+                    endpoints: {
+                    byFile: 'http://127.0.0.1:8000/img/articles', // Your backend file uploader endpoint
+                            //byUrl: 'http://localhost:8000/fetchUrl',  Your endpoint that provides uploading by Url
+                    field: 'image'
+                    }
+            }
+         }
+        }
+                
+        });
+
+        console.log(editor);
+        
+    </script>
+    -->
 </div>
 {% endblock %}
