@@ -17,18 +17,17 @@
            
             <div class="article-title">
                 <h2>
-                {{ article.titre }}
+                {{article.titre }}
                 </h2>
             </div>
-            <div class="article-content">
-                <pre>
-                {{ article.contenu }}
+            <div class="article-content " id="editor" data-service="{{article.contenu}}">
+                <pre> 
                 </pre>
             </div>
         </div>
         <div>
             {{ form_start(form) }}
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4 cont" >
             {{ form_row(form.contenu) }}
             </div>
             {{ form_end(form) }}
@@ -41,12 +40,30 @@
     </main>
 
     </main>
-    <script></script>
+    <script>
+        var toolbarOptions = [
+                ['bold', 'italic','underline'],
+                ['link', 'blockquote', 'code-block', 'image'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                [{ 'color': [] }], 
+                            ];
 
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+            });
 
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/projects/blog/src/Controller/BlogController.php'|file_link(0) }}">src/Controller/BlogController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/projects/blog/templates/blog/index.html.twig'|file_link(0) }}">templates/blog/index.html.twig</a></code></li>
-    </ul>
+        var form = document.querySelector('form'); 
+        var cont = document.getElementById('editor').dataset.service;
+        var json = '[' + cont +']';
+        var content = eval(json);
+        console.log([content[0] ] );
+        //c = JSON.parse(content['ops']);
+        quill.setContents(content[0]   );
+        
+    </script>
+
 </div>
 {% endblock %}

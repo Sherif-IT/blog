@@ -22,7 +22,7 @@ class CategorieFormType extends AbstractType
             },
             'label' => 'Choisir une categorie',
             
-             'multiple' => false,
+             'multiple' => true,
              'expanded' => false,
         ])
         ->add(

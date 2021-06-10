@@ -40,7 +40,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function findOneById($value): ?Article
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
+            ->andWhere('a.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use  App\Entity\User;
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime; 
 /**
@@ -45,11 +47,17 @@ class Article
      */
     private $dateModification;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="articles",cascade={"persist"})
+     */
+    private $categories;
+
 
 
     public function __construct()
     {
         $this->setDateCreation(new \DateTime());
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,6 +121,30 @@ class Article
     public function setDateModification(?\DateTimeInterface $dateModification): self
     {
         $this->dateModification = $dateModification;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Categorie[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categorie $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): self
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }

@@ -14,37 +14,41 @@
 <div class="example-wrapper">
     <h1> Edit something! ✅</h1>
     <main> 
-        <div class="form-wrapper">       
-            {{ form_start(categories_form) }}
-            <div class="form-group  pb-2 pt-4">
-                {% for categorie in categories_form.categorie %}
-                    <li>{{ form_row(categories_form.categorie )}}</li>
-                {% endfor %}
+        {% if categories_form is defined %}
+            <div class="form-wrapper">       
+                {{ form_start(categories_form) }}
+                <div class="form-group  pb-2 pt-4">
+                    {% for categorie in categories_form.categorie %}
+                        <li>{{ form_row(categories_form.categorie )}}</li>
+                    {% endfor %}
+                </div>
+                <div class="form-group col-md-4">
+                    {{ form_row(categories_form.submit, { 'label': 'Submit article!' })}}
+                </div>
+                {{ form_end(categories_form) }}
             </div>
-            <div class="form-group col-md-4">
-                {{ form_row(categories_form.submit)}}
+        {% endif %}
+
+        {% if form is defined %}
+            <div class="form-wrapper">       
+                {{ form_start(form) }}
+                <div class="form-group  pb-2 pt-4">
+                {{ form_row(form.titre, {'label':'Mon titre' })}}
+                </div>
+                <div class="form-group ">
+                    <label for="contenu" class="articleContent"> Contenu de mon article</label>
+                    <div id="editor" ></div>
+                    {{ form_row(form.contenu) }}
+                </div>
+                <div class="form-group col-md-4">
+            {{ form_row(form.submit, { 'label': 'Submit article!' })}}
+                </div>
+                {{ form_end(form) }}
+            </div> 
+            <div class="save_action py-5 ">
+                <button  id="submit" type="button" class="btn btn-primary btn-lg btn-block p-3" onclick="save()">Submit Your aticle</div>
             </div>
-            {{ form_end(categories_form) }}
-        </div>
-        
-        <div class="form-wrapper">       
-            {{ form_start(form) }}
-            <div class="form-group  pb-2 pt-4">
-            {{ form_row(form.titre, {'label':'Mon titre' })}}
-            </div>
-            <div class="form-group ">
-                <label for="contenu" class="articleContent"> Contenu de mon article</label>
-                <div id="editor" ></div>
-                {{ form_row(form.contenu) }}
-            </div>
-            <div class="form-group col-md-4">
-          {{ form_row(form.submit, { 'label': 'Submit article!' })}}
-            </div>
-            {{ form_end(form) }}
-        </div>
-        <div class="save_action py-5 ">
-            <button  id="submit" type="button" class="btn btn-primary btn-lg btn-block p-3" onclick="save()">Submit Your aticle</div>
-        </div>
+        {% endif %}
     </main>
 
     <script >/*src="{{asset('js/editor.js')}}*/

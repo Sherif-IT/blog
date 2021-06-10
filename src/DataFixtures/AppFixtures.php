@@ -9,9 +9,11 @@ use App\Entity\User;
 
 class AppFixtures extends Fixture
 {
+
+    
     public function load(ObjectManager $manager)
     {
-         
+         /*
          $user = new User();
          $user->setUsername("marcus");
          $user->setPassword("ddd");
@@ -25,5 +27,6 @@ class AppFixtures extends Fixture
          $manager->persist($art);
 
         $manager->flush();
+        */
     }
 }
