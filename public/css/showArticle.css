@@ -1,0 +1,16 @@
+
+@media screen and (max-width: 600px) {
+    textarea#comment_form_contenu {
+    width: 60vh;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    textarea#comment_form_contenu {
+    width: 40vh;
+    }
+}
+
+textarea#comment_form_contenu {
+    width: 80vh;
+    }

@@ -20,14 +20,16 @@ class CommentFormType extends AbstractType
                 TextareaType::class,
                 [
                     'constraints' => [new NotBlank()],
-                    'attr' => ['class' => 'form-control']
+                    'label' => 'Ajouter un commentaire',
+                    'label_attr' => ['class'=> 'mt-4'],
+                    'attr' => ['class' => 'form-control ','cols'=> 100, 'rows' => 5 ]
                         ]
                 )
             ->add(
                 'submit',
                 SubmitType::class,
                 [
-                    'attr' => ['class' => 'form-submit'],
+                    'attr' => ['class' => 'form-submit mt-3'],
                     'label' => 'Submit your comment!'
                 ]
                 ) 

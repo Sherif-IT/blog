@@ -17,6 +17,7 @@ use App\Entity\Categorie;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+
 class EditArticleController extends AbstractController
 {
     
@@ -34,49 +35,56 @@ class EditArticleController extends AbstractController
         //$articlesRepository = $entityManager->getRepository('App:Article');
         //$commentsRepository = $entityManager->getRepository('App:Commentaire');
     }
-
-    #[Route('/choose-category/blog ', name: 'blog_choose_cat')]
+     /**
+     * @Route("/choose-category/blog", name="blog_choose_cat")
+     */ 
     public function selectCategory(Request $request): Response
     {       
         $categories = null;
+        $form = null;
+        $user = null; 
         /*$us = new User();
         $us->setUsername('Augusto');
         $us->setPassword('Ltc44');
         $us->setEmail('augusto@gmail.com');*/
         $categories = $this->entityManager->getRepository('App:Categorie')
         ->findAll();
-        $categorieForm = $this->createForm(CategorieFormType::class, $categories);
-        $categorieForm->handleRequest($request);
-        $selectedCategories[] = null ;
-            if ($categorieForm->isSubmitted()) { 
-                $_categories = $categorieForm->get('categorie')->getData();
-                foreach ($categories as $key => $value) {
-                    if (in_array ($value, $_categories->toArray())) {
-                        $selectedCategories[] = $value; 
-                    }
-                }
+        $user = $this->entityManager->getRepository('App:User')
+        ->find(1);
+        $article = new Article();
+        $article->setIdUser($user); 
+        
+        $form = $this->createForm(ArticleFormType::class, $article);  
+        $form->handleRequest($request);
+        if ($form->isSubmitted() ) {
+            $this->entityManager->persist($article);
+            $this->entityManager->flush($article);
+        }
+        return $this->render('edit_article/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
+        
                     /*$categorie = new Categorie(); 
                     $categorie->addArticle($article);
                     $categorie->setCategorie($value->getCategorie());
                     $this->entityManager->persist($categorie);
                     $this->entityManager->flush($categorie);  }*/
-                    $response = $this->forward('App\Controller\Edit\EditArticleController::editArticle', [
-                        'categories'  => $selectedCategories,
-                    ]); 
-                // ... further modify the response or return it directly
-                return $response;
-                }  
+                 // ... further modify the response or return it directly
+          
         return $this->render('edit_article/index.html.twig', [
-            'categories_form' => $categorieForm->createView(),
+            'form' => $form->createView(),
         ]);
     }
+
+    
     /** 
      * @ParamConverter("_categories", class="App\Entity\Categorie:categorie")
      * */
     #[Route('/edit-article/blog ', name: 'blog_edit')]
     public function editArticle(Categorie $_categories, Request $request): Response
     {     
-        $form = null;
+       /* $form = null;
         $user = null; 
         $user = $this->entityManager->getRepository('App:User')
         ->find(3);
@@ -93,7 +101,7 @@ class EditArticleController extends AbstractController
         }
         return $this->render('edit_article/index.html.twig', [
             'form' => $form->createView(),
-        ]);
+        ]);*/
 
     }
 }

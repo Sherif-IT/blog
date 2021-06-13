@@ -17,22 +17,12 @@ class CategorieFormType extends AbstractType
         $builder->add('categorie', EntityType::class, [
             'class' => Categorie::class,
             'attr'  => ['class' => 'custom-select custom-select-lg multiple ml-3'],
-            'choice_label' => function ($categories) {
-                return $categories->getCategorie();
-            },
+            'choice_label' =>  'categorie',
             'label' => 'Choisir une categorie',
             
              'multiple' => true,
              'expanded' => false,
-        ])
-        ->add(
-            'submit',
-            SubmitType::class,
-            [
-                'attr' => ['class' => 'form-submit'],
-                'label' => 'Valider categorie!'
-            ]
-            );
+        ]) ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
