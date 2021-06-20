@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\ImageUploader;
 use App\Entity\Article;
 use App\Entity\User;
 use App\Entity\Commentaire;
@@ -47,8 +48,7 @@ class ArticleController extends AbstractController
         $relatedArticles = [];
         foreach ($CaregoriesOfArticle as $cat) {
             //TODO Exclure l'article courant des articles to show
-            $relatedArticles =  $cat->getArticles();
-
+            $relatedArticles =  $cat->getArticles(); 
         }             
         $newComment = new Commentaire();  
         $comments = $this->getDoctrine()
@@ -78,7 +78,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/edit/blog", name="blog_choose_cat")
      */ 
-    public function selectCategory(Request $request): Response
+    public function selectCategory(Request $request, ImageUploader $imagesUploader): Response
     {       
         $categories = null;
         $form = null;
@@ -97,6 +97,11 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleFormType::class, $article);  
         $form->handleRequest($request);
         if ($form->isSubmitted() ) {
+            $postThumbnail = $form->get('thumbnail')->getData();
+            if ($postThumbnail) {
+                $thumbnailFileName = $imagesUploader->upload($postThumbnail);
+                $article->setThumbnailFilename($thumbnailFileName);
+            }
             $this->entityManager->persist($article);
             $this->entityManager->flush($article);
         }

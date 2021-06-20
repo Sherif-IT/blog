@@ -52,6 +52,11 @@ class Article
      */
     private $categories;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $thumbnailFilename;
+
 
 
     public function __construct()
@@ -145,6 +150,18 @@ class Article
     public function removeCategory(Categorie $category): self
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getThumbnailFilename(): ?string
+    {
+        return $this->thumbnailFilename;
+    }
+
+    public function setThumbnailFilename(string $thumbnailFilename): self
+    {
+        $this->thumbnailFilename = $thumbnailFilename;
 
         return $this;
     }

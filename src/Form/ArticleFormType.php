@@ -47,8 +47,31 @@ class ArticleFormType extends AbstractType
                     'label' => false,
                     'attr' => ['class' => 'form-control','cols'=> 1000 , 'rows' => 10,   'hidden'=>'hidden']
                         ]
-            
                 )
+            ->add('thumbnail', FileType::class, [
+                    'label' => 'Thumbnail post image',
+    
+                    // unmapped means that this field is not associated to any entity property
+                    'mapped' => false,
+    
+                    // make it optional so you don't have to re-upload the PDF file
+                    // every time you edit the Product details
+                    'required' => true,
+    
+                    // unmapped fields can't define their validation using annotations
+                    // in the associated entity, so you can use the PHP constraint classes
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '1024k',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/png',
+                            ],
+                            'mimeTypesMessage' => 'Please upload a valid Image file',
+                        ])
+                    ],
+                ])
+                // 
                 
                 /*->add(
                     'image',

@@ -165,7 +165,7 @@
                                     {% for relatedArticle in relatedArticles %}
                                         <div class="nl-item">
                                             <div class="nl-img">
-                                                <img src="img/news-350x223-1.jpg">
+                                                <img src="{{ asset('uploads/post/thumbnails/' ~ relatedArticle.thumbnailFilename) }}">
                                             </div>
                                             <div class="nl-title">
                                                 <a href="">{{relatedArticle.titre}}</a>
