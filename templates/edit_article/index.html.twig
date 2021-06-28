@@ -35,13 +35,12 @@
                 <div class="form-group  pb-2 pt-4">
                 {{ form_row(form.titre, {'label':'Mon titre' })}}
                 </div>
-                <!--<ul class="form-group ">
-                    {% for categories in form.categories %}
-                        <li>{{ form_row(form.categories) }}</li>
-                    {% endfor %}
-                </ul>-->
+ 
                 <div class="form-group  pb-2 pt-4">
                 {{ form_row(form.thumbnail, {'label':'Thumbnail image' })}}
+                </div>
+                <div class="form-group  pb-2 pt-4">
+                {{ form_row(form.header_img, {'label':'Large header top image ' })}}
                 </div>
                 <div class="form-group ">
                     <label for="contenu" class="articleContent"> Contenu de mon article</label>

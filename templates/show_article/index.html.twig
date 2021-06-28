@@ -16,7 +16,7 @@
                     <div class="col-lg-8">
                         <div class="sn-container">
                             <div class="sn-img">
-                                <img src="img/news-825x525.jpg">
+                                <img src="{{ asset('uploads/post/thumbnails/' ~ article.largeHeaderImage) }}">
                             </div>
                             <div class="sn-content">
                                 <section class="article-content-section">
@@ -69,92 +69,44 @@
                                 </section>
                             </div>
                         </div>
+                        <!-- 
                         <div class="sn-related">
-                            <h2>Related News</h2>
-                            <div class="row sn-slider slick-initialized slick-slider"><button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="">Previous</button>
-                                
-                                
-                                
-                                
-                            <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 2794px; transform: translate3d(-762px, 0px, 0px);"><div class="col-md-4 slick-slide slick-cloned" tabindex="-1" style="width: 254px;" data-slick-index="-3" aria-hidden="true">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-2.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="-1">Interdum et fames ac ante</a>
+                                <h2>Related News</h2>
+                                <div class="row sn-slider">
+                                    <div class="col-md-4">
+                                        <div class="sn-img">
+                                            <img src="{{asset('img/news-350x223-1.jpg')}}" />
+                                            <div class="sn-title">
+                                                <a href="">Interdum et fames ac ante</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div><div class="col-md-4 slick-slide slick-cloned" tabindex="-1" style="width: 254px;" data-slick-index="-2" aria-hidden="true">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-3.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="-1">Interdum et fames ac ante</a>
+                                    <div class="col-md-4">
+                                        <div class="sn-img">
+                                            <img src="http://127.0.0.1:8000/img/news-350x223-2.jpg" />
+                                            <div class="sn-title">
+                                                <a href="">Interdum et fames ac ante</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div><div class="col-md-4 slick-slide slick-cloned" tabindex="-1" style="width: 254px;" data-slick-index="-1" aria-hidden="true">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-4.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="-1">Interdum et fames ac ante</a>
+                                    <div class="col-md-4">
+                                        <div class="sn-img">
+                                            <img src="img/news-350x223-3.jpg" />
+                                            <div class="sn-title">
+                                                <a href="">Interdum et fames ac ante</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div><div class="col-md-4 slick-slide slick-current slick-active" tabindex="0" style="width: 254px;" data-slick-index="0" aria-hidden="false">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-1.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="0">Interdum et fames ac ante</a>
+                                    <div class="col-md-4">
+                                        <div class="sn-img">
+                                            <img src="img/news-350x223-4.jpg" />
+                                            <div class="sn-title">
+                                                <a href="">Interdum et fames ac ante</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div><div class="col-md-4 slick-slide slick-active" tabindex="0" style="width: 254px;" data-slick-index="1" aria-hidden="false">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-2.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="0">Interdum et fames ac ante</a>
-                                        </div>
-                                    </div>
-                                </div><div class="col-md-4 slick-slide slick-active" tabindex="0" style="width: 254px;" data-slick-index="2" aria-hidden="false">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-3.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="0">Interdum et fames ac ante</a>
-                                        </div>
-                                    </div>
-                                </div><div class="col-md-4 slick-slide" tabindex="-1" style="width: 254px;" data-slick-index="3" aria-hidden="true">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-4.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="-1">Interdum et fames ac ante</a>
-                                        </div>
-                                    </div>
-                                </div><div class="col-md-4 slick-slide slick-cloned" tabindex="-1" style="width: 254px;" data-slick-index="4" aria-hidden="true">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-1.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="-1">Interdum et fames ac ante</a>
-                                        </div>
-                                    </div>
-                                </div><div class="col-md-4 slick-slide slick-cloned" tabindex="-1" style="width: 254px;" data-slick-index="5" aria-hidden="true">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-2.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="-1">Interdum et fames ac ante</a>
-                                        </div>
-                                    </div>
-                                </div><div class="col-md-4 slick-slide slick-cloned" tabindex="-1" style="width: 254px;" data-slick-index="6" aria-hidden="true">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-3.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="-1">Interdum et fames ac ante</a>
-                                        </div>
-                                    </div>
-                                </div><div class="col-md-4 slick-slide slick-cloned" tabindex="-1" style="width: 254px;" data-slick-index="7" aria-hidden="true">
-                                    <div class="sn-img">
-                                        <img src="img/news-350x223-4.jpg">
-                                        <div class="sn-title">
-                                            <a href="" tabindex="-1">Interdum et fames ac ante</a>
-                                        </div>
-                                    </div>
-                                </div></div></div><button class="slick-next slick-arrow" aria-label="Next" type="button" style="">Next</button></div>
-                        </div>
+                                </div>
+                        </div> -->
                     </div>
 
                     <div class="col-lg-4">
@@ -336,11 +288,11 @@
                                 <h2 class="sw-title">News Category</h2>
                                 <div class="category">
                                     <ul>
-                                        {% for category in categories %}
+                                       <!-- {% for category in categories %}
                                         
                                             <li><a href="">{{category.categorie}}</a><span>({{category.articles|length}})</span></li>
                                             
-                                        {% endfor %} 
+                                        {% endfor %} -->
                                     </ul>
                                 </div>
                             </div>
@@ -354,13 +306,9 @@
                             <div class="sidebar-widget">
                                 <h2 class="sw-title">Tags Cloud</h2>
                                 <div class="tags">
-                                    <a href="">National</a>
-                                    <a href="">International</a>
-                                    <a href="">Economics</a>
-                                    <a href="">Politics</a>
-                                    <a href="">Lifestyle</a>
-                                    <a href="">Technology</a>
-                                    <a href="">Trades</a>
+                                {% for tag in tags %}
+                                    <a href="">{{tag.tag}}</a>
+                                {% endfor %} 
                                 </div>
                             </div>
                         </div>
@@ -383,6 +331,7 @@
             modules: {
                 toolbar: '#toolbar-container'
             },
+            readOnly: true,
             theme: 'snow'
             });
 

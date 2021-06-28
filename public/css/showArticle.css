@@ -22,6 +22,7 @@
     .panel-body {
         max-height:650px;
         overflow:auto;
+        
     }
      
     .media-list .media img {
@@ -37,4 +38,8 @@
 
     .comments-show ul{
         padding-inline-start: 6px;
+    }
+
+    .ql-container.ql-snow, .ql-toolbar.ql-snow{
+        border:none;
     }

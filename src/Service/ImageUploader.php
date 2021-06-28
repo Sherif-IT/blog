@@ -26,7 +26,8 @@ class ImageUploader
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-            // ... handle exception if something happens during file upload
+            echo'unable to upload, please try again';
+            $this->redirectToRoute('show_article', ['id' => 1 ]);
         }
 
         return $fileName;

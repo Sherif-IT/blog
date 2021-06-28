@@ -29,25 +29,39 @@ class ArticleController extends AbstractController
  
      public function __construct(EntityManagerInterface $entityManager)
      {
-         $this->entityManager = $entityManager;
-         $userRepository = $entityManager->getRepository('App:User');
-         /**$articlesRepository = $entityManager->getRepository('App:Article');
-         $commentsRepository = $entityManager->getRepository('App:Commentaire');**/
+         $this->entityManager = $entityManager; 
      }
-
+     
+      /**
+     * @Route("/", name="index")
+     */
+    public function index( Request $request)
+    { 
+        $articles = $this->getDoctrine()
+            ->getRepository(Article::class)->findAll(); 
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)->findAll(); ; 
+        return $this->render('index.html.twig', [  
+            'articles' => $articles,  
+            'categories' => $categories,
+            /*'relatedArticles' => $relatedArticles,
+            'user' => $user*/
+        ]);
+    }
       /**
      * @Route("/blog/{id}", name="show_article")
      */
     public function show($id, Request $request)
     { 
+        $user = $this->getUser();
         $categoryRepo = $this->entityManager->getRepository('App:Categorie'); 
         $article = $this->getDoctrine()
-            ->getRepository(Article::class)->find($id);  
+            ->getRepository(Article::class)->find($id); 
+        $tags = $article->getTags(); 
         $CaregoriesOfArticle = $article->getCategories();
         $categories = $categoryRepo->findAll();
         $relatedArticles = [];
-        foreach ($CaregoriesOfArticle as $cat) {
-            //TODO Exclure l'article courant des articles to show
+        foreach ($CaregoriesOfArticle as $cat) { 
             $relatedArticles =  $cat->getArticles(); 
         }             
         $newComment = new Commentaire();  
@@ -65,42 +79,48 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('show_article', ['id' => $id ]);
         }
 
-        return $this->render('show_article/index.html.twig', [
-            'controller_name' => 'BlogController',
+        return $this->render('show_article/index.html.twig', [  
             'article' => $article,
+            'tags' => $tags,
             'comments' => $comments,
             'form' => $form->createView(),
             'relatedArticles' => $relatedArticles,
-            'categories' => $categories
+            'categories' => $categories,
+            'user' => $user
         ]);
     }
 
     /**
      * @Route("/edit/blog", name="blog_choose_cat")
      */ 
-    public function selectCategory(Request $request, ImageUploader $imagesUploader): Response
+    public function editArticle(Request $request, ImageUploader $imagesUploader): Response
     {       
         $categories = null;
         $form = null;
         $user = null; 
-        /*$us = new User();
+        $us = new User();
         $us->setUsername('Augusto');
-        $us->setPassword('Ltc44');
-        $us->setEmail('augusto@gmail.com');*/
-        $categories = $this->entityManager->getRepository('App:Categorie')
-        ->findAll();
+        $us->setPassword('WLS2');
+        $us->setEmail('augusto@gmail.com');
         $user = $this->entityManager->getRepository('App:User')
         ->find(1);
+        $categories = $this->entityManager->getRepository('App:Categorie')
+        ->findAll();
         $article = new Article();
-        $article->setIdUser($user); 
+        $article->setIdUser($user   ); 
         
         $form = $this->createForm(ArticleFormType::class, $article);  
-        $form->handleRequest($request);
+        $form->handleRequest($request); 
         if ($form->isSubmitted() ) {
             $postThumbnail = $form->get('thumbnail')->getData();
-            if ($postThumbnail) {
+            $postHeaderImg = $form->get('header_img')->getData();   
+            $imgs = [];
+            array_push($imgs, [$postHeaderImg, $postThumbnail]);
+            if (!empty($imgs) && count($imgs) >= 1) {
                 $thumbnailFileName = $imagesUploader->upload($postThumbnail);
+                $headerImgFileName = $imagesUploader->upload($postHeaderImg);
                 $article->setThumbnailFilename($thumbnailFileName);
+                $article->setLargeHeaderImage($headerImgFileName);
             }
             $this->entityManager->persist($article);
             $this->entityManager->flush($article);
@@ -109,15 +129,6 @@ class ArticleController extends AbstractController
         return $this->render('edit_article/index.html.twig', [
             'form' => $form->createView(),
         ]);
-
-        
-                    /*$categorie = new Categorie(); 
-                    $categorie->addArticle($article);
-                    $categorie->setCategorie($value->getCategorie());
-                    $this->entityManager->persist($categorie);
-                    $this->entityManager->flush($categorie);  }*/
-                 // ... further modify the response or return it directly
-          
     }
 
 }

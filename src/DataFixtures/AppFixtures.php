@@ -21,12 +21,13 @@ class AppFixtures extends Fixture
          $manager->persist($user);
 
          $art = new Article();
+         $art->setThumbnailFilename("image.png");
          $art->setContenu("article test: lorem ipsum"); 
-         $art->setTitre("test1");
+         $art->setTitre("test2");
          $art->setIdUser($user);
          $manager->persist($art);
 
-        $manager->flush();
-        */
+        $manager->flush();*/
+        
     }
 }

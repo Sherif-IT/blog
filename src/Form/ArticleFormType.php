@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Tag;
 use App\Entity\Categorie;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\AbstractType;
@@ -35,9 +36,18 @@ class ArticleFormType extends AbstractType
                     'class' => Categorie::class,
                     'attr'  => ['class' => 'custom-select custom-select-lg multiple ml-3'],
                     'choice_label' =>  'categorie',
-                    'label' => 'Choisir une categorie',
+                    'label' => 'Choisir une ou plusieurs categories',
                      'multiple' => true,
                      'expanded' => false,
+                ])
+            ->add('tags', EntityType::class, [
+                    'class' => Tag::class,
+                    'attr'  => ['class' => 'tags'],
+                    'choice_label' =>  'tag',
+                    'label' => 'Ajouter un ou plusieurs mots clés',
+                     'multiple' => true,
+                     'expanded' => true,
+                     'by_reference' => false,
                 ])
             ->add(
                 'contenu',
@@ -48,6 +58,29 @@ class ArticleFormType extends AbstractType
                     'attr' => ['class' => 'form-control','cols'=> 1000 , 'rows' => 10,   'hidden'=>'hidden']
                         ]
                 )
+                ->add('header_img', FileType::class, [
+                        'label' => 'Header top post image',
+        
+                        // unmapped means that this field is not associated to any entity property
+                        'mapped' => false,
+        
+                        // make it optional so you don't have to re-upload the PDF file
+                        // every time you edit the Product details
+                        'required' => true,
+        
+                        // unmapped fields can't define their validation using annotations
+                        // in the associated entity, so you can use the PHP constraint classes
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '1024k',
+                                'mimeTypes' => [
+                                    'image/jpeg',
+                                    'image/png',
+                                ],
+                                'mimeTypesMessage' => 'Please upload a valid Image file',
+                            ])
+                        ],
+                    ])
             ->add('thumbnail', FileType::class, [
                     'label' => 'Thumbnail post image',
     
@@ -71,23 +104,6 @@ class ArticleFormType extends AbstractType
                         ])
                     ],
                 ])
-                // 
-                
-                /*->add(
-                    'image',
-                     FileType::class,[
-                     
-                     'label' => 'Image',
-                     
-                     'attr' => ['id'=>'uploadImage'],
-
-                     // unmapped means that this field is not associated to any entity property
-                     'mapped' => false,
-     
-                     // make it optional so you don't have to re-upload the PDF file
-                     // every time you edit the Product details
-                     'required' => false,
-                     ])*/
             ->add(
                 'submit',
                 SubmitType::class,

@@ -57,12 +57,23 @@ class Article
      */
     private $thumbnailFilename;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $largeHeaderImage;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="articles")
+     */
+    private $tags;
+
 
 
     public function __construct()
     {
         $this->setDateCreation(new \DateTime());
         $this->categories = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,6 +173,45 @@ class Article
     public function setThumbnailFilename(string $thumbnailFilename): self
     {
         $this->thumbnailFilename = $thumbnailFilename;
+
+        return $this;
+    }
+
+    public function getLargeHeaderImage(): ?string
+    {
+        return $this->largeHeaderImage;
+    }
+
+    public function setLargeHeaderImage(?string $largeHeaderImage): self
+    {
+        $this->largeHeaderImage = $largeHeaderImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            $tag->removeArticle($this);
+        }
 
         return $this;
     }

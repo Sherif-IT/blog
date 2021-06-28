@@ -58,7 +58,8 @@
         },
         "files": [
             "./src/DataFixtures/AppFixtures.php",
-            "./src/DataFixtures/CategorieFixtures.php"
+            "./src/DataFixtures/CategorieFixtures.php",
+            "./src/DataFixtures/TagFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
